@@ -138,44 +138,7 @@
     0: []  // Minggu (tidak ada kelas)
   };
 
-  const semuaMataKuliah = [
-    "Pendidikan Kewarganegaraan",
-    "Pendidikan Agama Islam",
-    "Hukum Pidana",
-    "Sosiologi dan Ilmu Budaya Dasar",
-    "Bahasa Indonesia",
-    "Hukum Perdata",
-    "Hukum Tata Negara"
-  ];
-
-  const dataAbsensi = {
-    david: {
-      "Pendidikan Kewarganegaraan": { hadir: [1,2,3,4,5,6,7,8], tidakHadir: [] },
-      "Pendidikan Agama Islam": { hadir: [1,2,3,4,5,6,7,8], tidakHadir: [] },
-      "Hukum Pidana": { hadir: [1,2,3,4,5,6,7,8], tidakHadir: [] },
-      "Sosiologi dan Ilmu Budaya Dasar": { hadir: [1,2,3,4,5,6,7,8], tidakHadir: [] },
-      "Bahasa Indonesia": { hadir: [1,2,3,4,5,6,7,8], tidakHadir: [] },
-      "Hukum Perdata": { hadir: [1,2,3,4,5,6,7,8], tidakHadir: [] },
-      "Hukum Tata Negara": { hadir: [1,2,3,4,5,6,7,8], tidakHadir: [] }
-    },
-    angga: {
-      "Pendidikan Kewarganegaraan": { hadir: [1,2,3,5,7,8], tidakHadir: [4,6] },
-      "Pendidikan Agama Islam": { hadir: [2,3,4,6,8], tidakHadir: [1,5,7] },
-      "Hukum Pidana": { hadir: [1,2,3,4,5,6,7,8], tidakHadir: [] },
-      "Sosiologi dan Ilmu Budaya Dasar": { hadir: [1,2,4,5,6,7,8], tidakHadir: [3] },
-      "Bahasa Indonesia": { hadir: [1,2,3,4,6,7,8], tidakHadir: [5] },
-      "Hukum Perdata": { hadir: [2,3,4,5,6,7,8], tidakHadir: [1] },
-      "Hukum Tata Negara": { hadir: [1,2,3,4,5,6,7,8], tidakHadir: [] }
-    },
-    abdu: {
-      "Pendidikan Kewarganegaraan": { hadir: [1,2,3,5,7,8], tidakHadir: [4,6] },
-      "Pendidikan Agama Islam": { hadir: [2,4,5,6,7,8], tidakHadir: [1,3] },
-      "Hukum Pidana": { hadir: [1,2,3,4,5,6,7,8], tidakHadir: [] },
-      "Sosiologi dan Ilmu Budaya Dasar": { hadir: [1,2,3,4,5,6,7,8], tidakHadir: [] },
-      "Bahasa Indonesia": { hadir: [1,2,3,5,6,7,8], tidakHadir: [4] },
-      "Hukum Perdata": { hadir: [2,3,4,5,6,7,8], tidakHadir: [1] },
-      "Hukum Tata Negara": { hadir: [1,2,3,4,5,6,7,8], tidakHadir: [] }
-    }
+  
   };
 
   // Fungsi untuk memeriksa apakah waktu saat ini berada dalam jam kuliah
