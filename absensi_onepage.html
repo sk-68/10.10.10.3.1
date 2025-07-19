@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Absensi Mahasiswa Hukum - One Page</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #8b0000;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 500px;
+      margin: 60px auto;
+      background: #b22222;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    }
+    h2 {
+      text-align: center;
+    }
+    input, button, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 6px;
+    }
+    input {
+      background: #fff;
+      color: #000;
+    }
+    button {
+      background: black;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .dashboard {
+      display: none;
+    }
+    .card {
+      background: #fff;
+      color: #000;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="loginPage">
+    <h2>Login Absensi</h2>
+    <input type="text" id="loginId" placeholder="NIM / ID Dosen">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div class="container dashboard" id="mahasiswaDashboard">
+    <h2 id="mahasiswaWelcome"></h2>
+    <div id="absenCards"></div>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <div class="container dashboard" id="dosenDashboard">
+    <h2 id="dosenWelcome"></h2>
+    <div id="dosenCards"></div>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    const users = {
+      "123": { nama: "Ali", password: "123", role: "mahasiswa" },
+      "456": { nama: "Budi", password: "456", role: "mahasiswa" },
+      "789": { nama: "Cici", password: "789", role: "mahasiswa" },
+      "dosen1": { nama: "Pak Darman", password: "admin1", role: "dosen", mataKuliah: ["Hukum Pidana", "Hukum Perdata"] },
+      "dosen2": { nama: "Bu Rina", password: "admin2", role: "dosen", mataKuliah: ["Hukum Islam", "Hukum Dagang"] }
+    };
+
+    const jadwalHariIni = {
+      "Hukum Pidana": [1],
+      "Hukum Perdata": [2],
+      "Hukum Islam": [3]
+    };
+
+    const kehadiran = {
+      "123": {},
+      "456": {},
+      "789": {}
+    };
+
+    function getToday() {
+      return new Date().toISOString().split("T")[0];
+    }
+
+    function login() {
+      const id = document.getElementById("loginId").value.trim();
+      const pass = document.getElementById("loginPassword").value.trim();
+      const user = users[id];
+
+      if (!user) return alert("User tidak ditemukan!");
+      if (user.password !== pass) return alert("Password salah!");
+
+      document.getElementById("loginPage").style.display = "none";
+
+      if (user.role === "mahasiswa") {
+        showMahasiswaUI(id, user);
+      } else if (user.role === "dosen") {
+        showDosenUI(user);
+      }
+    }
+
+    function logout() {
+      document.getElementById("loginPage").style.display = "block";
+      document.getElementById("mahasiswaDashboard").style.display = "none";
+      document.getElementById("dosenDashboard").style.display = "none";
+    }
+
+    function showMahasiswaUI(nim, data) {
+      document.getElementById("mahasiswaDashboard").style.display = "block";
+      document.getElementById("mahasiswaWelcome").innerText = `Halo, ${data.nama}`;
+      const container = document.getElementById("absenCards");
+      container.innerHTML = "";
+
+      for (let matkul in jadwalHariIni) {
+        const pertemuan = jadwalHariIni[matkul][0];
+        const status = kehadiran[nim][matkul]?.[pertemuan] || "Belum Absen";
+
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h4>${matkul}</h4>
+          <p>Pertemuan ke-${pertemuan}</p>
+          <p>Status: ${status}</p>
+          <button onclick="absen('${nim}', '${matkul}', ${pertemuan})">Absen</button>
+        `;
+        container.appendChild(card);
+      }
+    }
+
+    function absen(nim, matkul, pertemuan) {
+      if (!kehadiran[nim][matkul]) kehadiran[nim][matkul] = {};
+      kehadiran[nim][matkul][pertemuan] = "hadir";
+      alert(`Absen berhasil untuk ${matkul} pertemuan ke-${pertemuan}`);
+      showMahasiswaUI(nim, users[nim]);
+    }
+
+    function showDosenUI(user) {
+      document.getElementById("dosenDashboard").style.display = "block";
+      document.getElementById("dosenWelcome").innerText = `Selamat datang, ${user.nama}`;
+      const container = document.getElementById("dosenCards");
+      container.innerHTML = "";
+
+      for (let nim in kehadiran) {
+        const mahasiswa = users[nim];
+        for (let matkul of user.mataKuliah) {
+          const pertemuan = jadwalHariIni[matkul]?.[0] || 1;
+          const status = kehadiran[nim][matkul]?.[pertemuan] || "Belum Absen";
+
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <strong>${mahasiswa.nama}</strong> - ${matkul}<br>
+            Pertemuan ke-${pertemuan}: 
+            <select onchange="updateStatus('${nim}', '${matkul}', ${pertemuan}, this.value)">
+              <option value="hadir" ${status === "hadir" ? "selected" : ""}>Hadir</option>
+              <option value="izin" ${status === "izin" ? "selected" : ""}>Izin</option>
+              <option value="alpha" ${status === "alpha" ? "selected" : ""}>Alpha</option>
+              <option value="Belum Absen" ${status === "Belum Absen" ? "selected" : ""}>Belum Absen</option>
+            </select>
+          `;
+          container.appendChild(card);
+        }
+      }
+    }
+
+    function updateStatus(nim, matkul, pertemuan, status) {
+      if (!kehadiran[nim][matkul]) kehadiran[nim][matkul] = {};
+      kehadiran[nim][matkul][pertemuan] = status;
+      alert(`Status diperbarui: ${nim} - ${matkul} - pertemuan ${pertemuan} = ${status}`);
+    }
+  </script>
+</body>
+</html>
