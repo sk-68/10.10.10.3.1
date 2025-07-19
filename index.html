@@ -1,96 +1,32 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <title>Data Kehadiran Semester 2 2024/2025</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Absensi Mahasiswa</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-<div class="login" id="loginBox">
-  <img class="logo" src="img/Logo.jpg" alt="Logo" />
-  <h2>ILMU HUKUM SEMESTER 2</h2>
-
-  <div id="datetime"></div>
-  <div id="infoPertemuan" class="info-pertemuan"></div>
-  <div class="jadwal-hari-ini" id="jadwalHariIni">
-    <h3>Jadwal Kuliah Hari Ini</h3>
-    <div id="listMatkul"></div>
+  <div class="login-container">
+    <div class="login-box">
+      <h1>ABSENSI MAHASISWA</h1>
+      <h3>Semester 3 - Mulai 23 September 2025</h3>
+      <p class="sub">Fakultas Hukum - Universitas Merah Putih</p>
+      <input type="text" id="nim" placeholder="Masukkan NIM">
+      <input type="password" id="password" placeholder="Masukkan Password">
+      <button onclick="login()">Login</button>
+      <p id="loginError"></p>
+    </div>
   </div>
 
-  <input type="email" id="username" placeholder="Email" /><br /><br />
-  <input type="password" id="password" placeholder="Password" /><br /><br />
-  <button onclick="login()">Masuk</button>
-  <p id="loginError"></p>
-</div>
+  <div id="mainBox" style="display:none;">
+    <h2 id="welcomeTitle"></h2>
+    <div id="roleDisplay"></div>
+    <div id="dashboard"></div>
+    <button onclick="logout()">Logout</button>
+  </div>
 
-<div class="absensi" id="absensiBox" style="display:none;">
-  <div id="greetingMessage" class="greeting"></div>
-  <div id="welcomeMessage" class="welcome-message"></div>
-  <div id="roleInfo" class="role-info"></div>
-  <div id="dosenInfo" class="dosen-info"></div>
-  <div id="datetimeAbsensi"></div>
-  <div id="infoPertemuanAbsensi" class="info-pertemuan"></div>
-  <h2>Data Absensi</h2>
-  <div id="tables"></div>
-  <button onclick="logout()">Logout</button>
-</div>
-
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
-
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyBjgyASzKxiOX-Lk-1f-ppad983GpAk6AE",
-    authDomain: "absensi-perkuliahan.firebaseapp.com",
-    projectId: "absensi-perkuliahan",
-    storageBucket: "absensi-perkuliahan.firebasestorage.app",
-    messagingSenderId: "370507083773",
-    appId: "1:370507083773:web:ddece366d8bdda9f943394",
-    measurementId: "G-86T4ZV2LSD"
-  };
-
-  // Inisialisasi Firebase
-  firebase.initializeApp(firebaseConfig);
-
-  // Fungsi Login
-  function login() {
-    const email = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        document.getElementById("loginBox").style.display = "none";
-        document.getElementById("absensiBox").style.display = "block";
-        document.getElementById("greetingMessage").innerText = "Selamat datang!";
-        document.getElementById("welcomeMessage").innerText = "Anda berhasil login sebagai " + email;
-      })
-      .catch((error) => {
-        document.getElementById("loginError").innerText = "Login gagal: " + error.message;
-      });
-  }
-
-  // Fungsi Logout
-  function logout() {
-    firebase.auth().signOut().then(() => {
-      document.getElementById("loginBox").style.display = "block";
-      document.getElementById("absensiBox").style.display = "none";
-    });
-  }
-
-  // Auto-login kalau sudah login sebelumnya
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      document.getElementById("loginBox").style.display = "none";
-      document.getElementById("absensiBox").style.display = "block";
-      document.getElementById("greetingMessage").innerText = "Selamat datang!";
-      document.getElementById("welcomeMessage").innerText = "Login otomatis sebagai " + user.email;
-    }
-  });
-</script>
-
-<!-- Script lokal tambahan -->
-<script src="js/script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
+
