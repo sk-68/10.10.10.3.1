@@ -3,7 +3,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>Data Kehadiran Semester 2 2024/2025</title>
+  <title>Data Kehadiran Semester 3 2025/2026</title>
   <!-- Add Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
@@ -177,7 +177,7 @@
 
 <div class="login" id="loginBox">
   <img class="logo" src="Logo.jpg" alt="Logo" />
-  <h2>ILMU HUKUM SEMESTER 2</h2>
+  <h2>ILMU HUKUM SEMESTER 3</h2>
   
   <div id="datetime"></div>
   <div id="infoPertemuan" class="info-pertemuan"></div>
@@ -225,12 +225,12 @@
   // Data pengguna
   const users = {
     // User admin
-    admin: { password: 'admin1', role: 'admin', name: 'Administrator', title: '' },
+    admin: { password: 'superadmin', role: 'admin', name: 'Administrator', title: '' },
     
     // User mahasiswa
-    david: { password: 'david', role: 'student', name: 'David', title: '', nim: '12345' },
-    abdu: { password: 'abdu', role: 'student', name: 'Abdu', title: '', nim: '12346' },
-    angga: { password: 'angga', role: 'student', name: 'Angga', title: '', nim: '12347' },
+    david: { password: 'david', role: 'student', name: 'David', title: '', nim: '50124802' },
+    abdu: { password: 'abdu', role: 'student', name: 'Abdu', title: '', nim: '50124803' },
+    angga: { password: 'angga', role: 'student', name: 'Angga', title: '', nim: '50124801' },
     
     // User dosen
     'pak agan': { 
@@ -238,7 +238,7 @@
       role: 'lecturer', 
       name: 'Agan Sutanto',
       title: 'S.H., M.H.',
-      matkul: 'Hukum Perdata',
+      matkul: ['Hukum Dagang', 'Hukum Internasional', 'Hukum Agraria'],
       greeting: 'Pak'
     },
     'bu elvina': { 
@@ -246,23 +246,7 @@
       role: 'lecturer', 
       name: 'Elvina Melinda',
       title: 'S.H., M.H.',
-      matkul: ['Hukum Pidana', 'Pendidikan Kewarganegaraan', 'Sosiologi dan Ilmu Budaya Dasar'],
-      greeting: 'Bu'
-    },
-    'pak arif': { 
-      password: '123', 
-      role: 'lecturer', 
-      name: 'Muarifudin',
-      title: 'S.E., M.M.',
-      matkul: 'Pendidikan Agama Islam',
-      greeting: 'Pak'
-    },
-    'bu dina': { 
-      password: '123', 
-      role: 'lecturer', 
-      name: 'Dina Ulaya Aziizah',
-      title: 'S.E., M.M.',
-      matkul: 'Bahasa Indonesia',
+      matkul: ['Hukum Administrasi Negara', 'Hukum Adat', 'Hukum Islam dan Waris'],
       greeting: 'Bu'
     },
     'bu lia': { 
@@ -270,20 +254,21 @@
       role: 'lecturer', 
       name: 'Kusroh Lailiyah',
       title: 'S.H., M.H.',
-      matkul: 'Hukum Tata Negara',
+      matkul: ['Hukum Otonomi Daerah', 'Hukum Daerah'],
       greeting: 'Bu'
     }
   };
 
   // Data dosen untuk setiap mata kuliah
   const dosenMatkul = {
-    "Pendidikan Kewarganegaraan": "Elvina Melinda, S.H., M.H.",
-    "Pendidikan Agama Islam": "Muarifudin, S.E., M.M.",
-    "Hukum Pidana": "Elvina Melinda, S.H., M.H.",
-    "Sosiologi dan Ilmu Budaya Dasar": "Elvina Melinda, S.H., M.H.",
-    "Bahasa Indonesia": "Dina Ulaya Aziizah, S.E., M.M.",
-    "Hukum Perdata": "Agan Sutanto, S.H., M.H.",
-    "Hukum Tata Negara": "Kusroh Lailiyah, S.H., M.H."
+    "Hukum Administrasi Negara": "Elvina Melinda, S.H., M.H.",
+    "Hukum Adat": "Elvina Melinda, S.H., M.H.",
+    "Hukum Islam dan Waris": "Elvina Melinda, S.H., M.H.",
+    "Hukum Dagang": "Agan Sutanto, S.H., M.H.",
+    "Hukum Internasional": "Agan Sutanto, S.H., M.H.",
+    "Hukum Agraria": "Agan Sutanto, S.H., M.H.",
+    "Hukum Otonomi Daerah": "Kusroh Lailiyah, S.H., M.H."
+    "Hukum Pajak": "Kusroh Lailiyah, S.H., M.H."
   };
 
   // Fungsi untuk set waktu ke tengah malam
@@ -295,47 +280,47 @@
 
   // Kalender Akademik Semester 3 Ilmu Hukum 2025/2026
   const pertemuanDates = [
-    setToMidnight(new Date('2025-03-17')), // Pertemuan 1
-    setToMidnight(new Date('2025-04-07')), // Pertemuan 2
-    setToMidnight(new Date('2025-04-14')),
-    setToMidnight(new Date('2025-04-21')),
-    setToMidnight(new Date('2025-04-28')),
-    setToMidnight(new Date('2025-05-05')),
-    setToMidnight(new Date('2025-05-12')),
-    setToMidnight(new Date('2025-05-19')),
-    setToMidnight(new Date('2025-06-02')),
-    setToMidnight(new Date('2025-06-09')),
-    setToMidnight(new Date('2025-06-16')),
-    setToMidnight(new Date('2025-06-23')),
-    setToMidnight(new Date('2025-06-30')),
-    setToMidnight(new Date('2025-07-07')),
-    setToMidnight(new Date('2025-07-14')),
-    setToMidnight(new Date('2025-07-21')), 
-    setToMidnight(new Date('2025-07-28')),
-    setToMidnight(new Date('2025-08-04')),
+    setToMidnight(new Date('2025-09-22')), // Pertemuan 1
+    setToMidnight(new Date('2025-09-29')), // Pertemuan 2
+    setToMidnight(new Date('2025-10-06')),
+    setToMidnight(new Date('2025-10-13')),
+    setToMidnight(new Date('2025-10-20')),
+    setToMidnight(new Date('2025-10-27')),
+    setToMidnight(new Date('2025-11-03')),
+    setToMidnight(new Date('2025-11-10')),
+    setToMidnight(new Date('2025-11-17')),
+    setToMidnight(new Date('2025-11-24')),
+    setToMidnight(new Date('2025-12-01')),
+    setToMidnight(new Date('2025-12-08')),
+    setToMidnight(new Date('2025-12-15')),
+    setToMidnight(new Date('2025-12-22')),
+    setToMidnight(new Date('2025-12-29')),
+    setToMidnight(new Date('2026-01-05')), 
+    setToMidnight(new Date('2026-01-12')),
+    setToMidnight(new Date('2026-01-19')),
   ];
 
   const holidays = [
-    // Libur Idul Fitri 24 Maret - 6 April
+    // Libur Idul Fitri 10 Oktober - 24 Oktober
     ...Array.from({ length: 14 }, (_, i) => ({
-      date: setToMidnight(new Date(2025, 2, 24 + i)),
+      date: setToMidnight(new Date(2025, 10, 10 + i)),
       name: 'Libur Idul Fitri'
     })),
-    { date: setToMidnight(new Date('2025-05-29')), name: 'Kenaikan Isa Almasih' },
-    { date: setToMidnight(new Date('2025-06-01')), name: 'Hari Lahir Pancasila' },
-    { date: setToMidnight(new Date('2025-06-06')), name: 'Hari Raya Idul Adha' },
-    { date: setToMidnight(new Date('2025-06-27')), name: 'Tahun Baru Islam' }
+    { date: setToMidnight(new Date('2025-09-05')), name: 'Maulid Nabi Muhammad SAW' },
+    { date: setToMidnight(new Date('2025-12-25')), name: 'Hari Natal' },
+    { date: setToMidnight(new Date('2026-01-01')), name: 'Tahun Baru 2026 Masehi' },
+    { date: setToMidnight(new Date('2026-01-16')), name: 'Isra Miraj' }
   ];
 
   const specialWeeks = {
     8: {
-      startDate: setToMidnight(new Date('2025-05-22')),
-      endDate: setToMidnight(new Date('2025-05-28')),
+      startDate: setToMidnight(new Date('2025-11-10')),
+      endDate: setToMidnight(new Date('2025-11-14')),
       name: 'Ujian Tengah Semester'
     },
     16: {
-      startDate: setToMidnight(new Date('2025-07-21')),
-      endDate: setToMidnight(new Date('2025-07-24')),
+      startDate: setToMidnight(new Date('2026-01-05')),
+      endDate: setToMidnight(new Date('2026-01-09')),
       name: 'Ujian Akhir Semester'
     }
   };
@@ -343,19 +328,20 @@
   // Jadwal mata kuliah berdasarkan hari (0=Minggu, 1=Senin, ..., 6=Sabtu) beserta jam
   const jadwalKuliah = {
     1: [ // Senin
-      { nama: "Pendidikan Kewarganegaraan", jam: "13:00 - 14:00" },
-      { nama: "Pendidikan Agama Islam", jam: "14:10 - 15:00" }
+      { nama: "Hukum Administrasi Negara", jam: "13:00 - 14:00" },
+      { nama: "Hukum Adat", jam: "14:10 - 15:00" }
     ],
     2: [ // Selasa
-      { nama: "Sosiologi dan Ilmu Budaya Dasar", jam: "13:00 - 14:00" },
-      { nama: "Hukum Perdata", jam: "14:10 - 15:00" }
+      { nama: "Hukum Islam dan Waris", jam: "13:00 - 14:00" },
+      { nama: "Hukum Dagang", jam: "14:10 - 15:00" }
     ],
     3: [ // Rabu
-      { nama: "Bahasa Indonesia", jam: "08:30 - 10:00" },
-      { nama: "Hukum Pidana", jam: "10:10 - 12:00" }
+      { nama: "Hukum Internasional", jam: "08:30 - 10:00" },
+      { nama: "Hukum Agraria", jam: "10:10 - 12:00" }
     ],
     4: [ // Kamis
-      { nama: "Hukum Tata Negara", jam: "09:30 - 15:30" }
+      { nama: "Hukum Pajak", jam: "09:30 - 15:30" }
+      { nama: "Hukum Otonomi Daerah", jam: "09:30 - 15:30" }
     ],
     5: [], // Jumat (tidak ada kelas)
     6: [], // Sabtu (tidak ada kelas)
@@ -363,13 +349,14 @@
   };
 
   const semuaMataKuliah = [
-    "Pendidikan Kewarganegaraan",
-    "Pendidikan Agama Islam",
-    "Hukum Pidana",
-    "Sosiologi dan Ilmu Budaya Dasar",
-    "Bahasa Indonesia",
-    "Hukum Perdata",
-    "Hukum Tata Negara"
+    "Hukum Administrasi Negara",
+    "Hukum Adat",
+    "Hukum Islam dan Waris",
+    "Hukum Dagang",
+    "Hukum Internasional",
+    "Hukum Agraria",
+    "Hukum Otonomi Daerah"
+    "Hukum Pajak"
   ];
 
   // Global variables
